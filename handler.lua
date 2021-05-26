@@ -57,7 +57,9 @@ function JwtClaimsHeadersHandler:access(conf)
   end
 
   local claims = jwt.claims
-  req_set_header("X-url", ngx.var.upstream_uri)
+  req_set_header("X-upstream_uri", ngx.var.upstream_uri)
+  req_set_header("X-request_uri", ngx.var.request_uri)
+  req_set_header("X-uri", ngx.var.ur)
   for claim_key,claim_value in pairs(claims) do
     for _,claim_pattern in pairs(conf.claims_to_include) do      
       if string.match(claim_key, "^"..claim_pattern.."$") then
